@@ -2,12 +2,12 @@ import React from 'react';
 import { Route } from 'react-router';
 
 import App from './app.container';
-import HomeRoute from './home';
+import SearchRoute from './search';
 import NotFoundRoute from './notFound';
 
 const routes = (
   <Route>
-    {HomeRoute}
+    {SearchRoute}
 
     <Route path="404">
       {NotFoundRoute}
@@ -18,10 +18,6 @@ const routes = (
 export default (
   <Route component={App}>
     <Route path="/">
-      {routes}
-    </Route>
-
-    <Route path="/:lang">
       {routes}
     </Route>
 
