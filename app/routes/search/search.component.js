@@ -22,12 +22,16 @@ export class Search extends PureComponent {
   render() {
     return (
       <div>
-        <section>
-          <input type="text" name="query" onChange={this.handleChange}></input>
-          <input type="button" onClick={this.search} value={this.props.intl.formatMessage(messages.btn)}></input>
+        <section className="search">
+          <input className="search__input" type="text" name="query" onChange={this.handleChange}></input>
+          <input className="search__btn"
+            type="button"
+            onClick={this.search}
+            value={this.props.intl.formatMessage(messages.btn)}
+          ></input>
         </section>
-        <section>
-          { this.props.items.map((i, id) => <GifItem item={i} key={id} />) }
+        <section className="results">
+          { this.props.items.map(i => <GifItem item={i} key={i.id} />) }
         </section>
       </div>
     );
