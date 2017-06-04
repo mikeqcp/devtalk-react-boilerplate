@@ -2,6 +2,12 @@ import { createSelector } from 'reselect';
 
 const selectSearchDomain = state => state.get('search');
 
-export const selectSearchItems = createSelector(
-  selectSearchDomain, state => state.get('items')
+export const selectGifsItems = createSelector(
+  selectSearchDomain,
+  state => state.get('gifs')
+);
+
+export const selectNewsItems = createSelector(
+  selectSearchDomain,
+  state => state.get('news')
 );

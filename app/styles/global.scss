@@ -20,7 +20,31 @@ html, body {
   justify-content: space-around;
 }
 
-.gif-item {
+.item {
+  display: inline-block;
   max-width: 25%;
   margin: 2%;
+}
+
+
+.news {
+  padding: 10px;
+  background: lightblue;
+  border-radius: 4px;
+  line-height: 150%;
+  display: flex;
+  flex-direction: column;
+}
+
+.news__category {
+  font-size: 15px;
+  font-style: italic;
+}
+
+.news__text {
+  font-weight: bold;
+}
+
+.news__link {
+  font-size: 15px;
 }

@@ -3,11 +3,13 @@ import { intlShape } from 'react-intl';
 
 import messages from './search.messages';
 import { GifItem } from './components/gifItem/gifItem.component';
+import { NewsItem } from './components/newsItem/newsItem.component';
 
 export class Search extends PureComponent {
   static propTypes = {
     intl: intlShape.isRequired,
-    items: PropTypes.object,
+    gifs: PropTypes.object,
+    news: PropTypes.object,
     fetchResults: PropTypes.func,
   };
 
@@ -25,7 +27,7 @@ export class Search extends PureComponent {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  render() {
+  render()  {
     return (
       <div>
         <section className="search">
@@ -42,7 +44,8 @@ export class Search extends PureComponent {
           ></input>
         </section>
         <section className="results">
-          { this.props.items.map(i => <GifItem item={i} key={i.id} />) }
+          { this.props.gifs.map((i, id) => <GifItem item={i} key={id} />) }
+          { this.props.news.map((i, id) => <NewsItem data={i} key={id} />) }
         </section>
       </div>
     );

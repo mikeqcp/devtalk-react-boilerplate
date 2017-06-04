@@ -8,7 +8,7 @@ export class GifItem extends PureComponent {
 
   render() {
     return (
-      <img className="gif-item" src={this.props.item.getIn(['images', 'downsized_medium', 'url'])} />
+      <img className="item item--gif" src={this.props.item.getIn(['images', 'downsized_medium', 'url'])} />
     );
   }
 }
