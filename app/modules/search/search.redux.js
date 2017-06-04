@@ -13,8 +13,10 @@ const SearchRecord = new Record({
 
 export const INITIAL_STATE = new SearchRecord({});
 
-const getSuccessHandler = (state = INITIAL_STATE, action) => state.set('items', fromJS(action.data.data));
+const fetchSuccessReducer = (state, action) => state.set('items', fromJS(action.data.data));
+const fetchReducer = (state) => state.set('items', []);
 
 export const reducer = createReducer(INITIAL_STATE, {
-  [SearchTypes.FETCH_SUCCESS]: getSuccessHandler,
+  [SearchTypes.FETCH]: fetchReducer,
+  [SearchTypes.FETCH_SUCCESS]: fetchSuccessReducer,
 });

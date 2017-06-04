@@ -11,6 +11,12 @@ export class Search extends PureComponent {
     fetchResults: PropTypes.func,
   };
 
+  onKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      this.search();
+    }
+  };
+
   search = () => {
     this.props.fetchResults(this.state.query);
   };
@@ -23,7 +29,12 @@ export class Search extends PureComponent {
     return (
       <div>
         <section className="search">
-          <input className="search__input" type="text" name="query" onChange={this.handleChange}></input>
+          <input className="search__input"
+            type="text"
+            name="query"
+            onChange={this.handleChange}
+            onKeyDown={this.onKeyDown}
+          ></input>
           <input className="search__btn"
             type="button"
             onClick={this.search}
