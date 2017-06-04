@@ -1,9 +1,26 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { intlShape } from 'react-intl';
+import { List, fromJS } from 'immutable';
+import { sumBy, shuffle, remove } from 'lodash';
 
 import messages from './search.messages';
 import { GifItem } from './components/gifItem/gifItem.component';
 import { NewsItem } from './components/newsItem/newsItem.component';
+
+function mergeArrays(...lists) {
+  const arrays = lists.map(l => ({ type: l.type, items: l.items.toJS() }));
+  const results = [];
+  const sumLength = sumBy(lists, l => l.items.size);
+  while (results.length < sumLength) {
+    let arrOrdered = shuffle(arrays);
+    const selected = arrOrdered[0];
+    results.push({ type: selected.type, data: selected.items.shift() });
+    if (selected.items.length === 0) {
+      remove(arrays, a => a === selected);
+    }
+  }
+  return results;
+}
 
 export class Search extends PureComponent {
   static propTypes = {
@@ -12,6 +29,12 @@ export class Search extends PureComponent {
     news: PropTypes.object,
     fetchResults: PropTypes.func,
   };
+
+  state = { items: new List() };
+
+  componentWillReceiveProps(props) {
+    this.setState({ items: mergeArrays({ type: 'gif', items: props.gifs }, { type: 'news', items: props.news }) });
+  }
 
   onKeyDown = (event) => {
     if (event.keyCode === 13) {
@@ -27,7 +50,16 @@ export class Search extends PureComponent {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  render()  {
+  renderItems() {
+    return this.state.items.map((i, id) => {
+      return {
+        news: () => <NewsItem data={fromJS(i.data)} key={id} />,
+        gif: () => <GifItem item={fromJS(i.data)} key={id} />,
+      }[i.type]();
+    });
+  }
+
+  render() {
     return (
       <div>
         <section className="search">
@@ -44,8 +76,7 @@ export class Search extends PureComponent {
           ></input>
         </section>
         <section className="results">
-          { this.props.gifs.map((i, id) => <GifItem item={i} key={id} />) }
-          { this.props.news.map((i, id) => <NewsItem data={i} key={id} />) }
+          { this.renderItems() }
         </section>
       </div>
     );

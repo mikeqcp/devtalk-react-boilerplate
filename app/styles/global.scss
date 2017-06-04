@@ -26,6 +26,14 @@ html, body {
   margin: 2%;
 }
 
+.item--gif {
+  width: 25%;
+  padding-bottom: 25%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: lightgrey;
+}
 
 .news {
   padding: 10px;
